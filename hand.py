@@ -1,6 +1,9 @@
 from aiogram import F, Router
 from aiogram.filters import Command
 from butt import button_start, button_spisok
+from aiogram.types import Message
+from tools import get_directory_tree
+import os
 
 
 router = Router()
@@ -8,8 +11,16 @@ router = Router()
 
 @router.message(Command('start'))
 async def hello_world(message):
+    os.makedirs(f"users_pictures/{message.from_user.id}")
     await message.answer("О привет! Выбери пожалуйста что ты хочешь делать :)", reply_markup=button_start)
     print("Кнопка <start> нажата")
+
+
+@router.message(Command('info'))
+async def hello_world(message):
+    l = get_directory_tree("./")
+    await message.answer(f"```\n{l}\n```", reply_markup=button_start)
+    print("Кнопка <info> нажата")
 
 
 @router.message(F.text == 'Списки котиков')
@@ -35,7 +46,7 @@ async def hello_world(message):
 
 @router.message(F.text == 'Получить котика')
 async def hello_world(message):
-    await message.answer(":)")
+    await message.answer(":)", get_cat())
     print("Кнопка <Получить котика> нажата")
 
 

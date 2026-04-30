@@ -3,6 +3,7 @@ from aiogram.filters import Command
 from butt import button_start, button_spisok
 from aiogram.types import Message
 from tools import get_directory_tree
+from get_cat import get_cat
 import os
 
 
@@ -19,7 +20,7 @@ async def hello_world(message):
 @router.message(Command('info'))
 async def hello_world(message):
     l = get_directory_tree("./")
-    await message.answer(f"```\n{l}\n```", reply_markup=button_start)
+    await message.answer(f"```\n{l}\n```", reply_markup=button_start, parse_mode="Markdown")
     print("Кнопка <info> нажата")
 
 
@@ -46,7 +47,8 @@ async def hello_world(message):
 
 @router.message(F.text == 'Получить котика')
 async def hello_world(message):
-    await message.answer(":)", get_cat())
+    get_cat("temp")
+    await message.answer(":)")
     print("Кнопка <Получить котика> нажата")
 
 

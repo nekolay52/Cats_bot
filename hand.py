@@ -4,6 +4,7 @@ from butt import button_start, button_spisok
 from aiogram.types import Message
 from tools import get_directory_tree
 from get_cat import get_cat
+from aiogram import types
 import os
 
 
@@ -49,7 +50,7 @@ async def hello_world(message):
 @router.message(F.text == 'Получить котика')
 async def hello_world(message):
     get_cat(f"users_pictures/{message.from_user.id}/temp.png")
-    await message.answer(":)")
+    await message.answer_photo(types.FSInputFile(path=f"users_pictures/{message.from_user.id}/temp.png"), caption=":)")
     print("Кнопка <Получить котика> нажата")
 
 

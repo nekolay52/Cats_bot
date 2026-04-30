@@ -48,7 +48,7 @@ async def hello_world(message):
 
 @router.message(F.text == 'Получить котика')
 async def hello_world(message):
-    get_cat("temp")
+    get_cat(f"users_pictures/{message.from_user.id}/temp.png")
     await message.answer(":)")
     print("Кнопка <Получить котика> нажата")
 

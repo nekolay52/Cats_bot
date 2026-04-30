@@ -19,3 +19,10 @@ button_spisok = ReplyKeyboardMarkup(
             resize_keyboard=True
 )
 
+
+button_inline = InlineKeyboardMarkup(
+            inline_keyboard=[
+                [InlineKeyboardButton(text="Следующий котик", callback_data="Следующий котик")],
+                [InlineKeyboardButton(text="Добавить котика в список", callback_data="Добавить котика в список")],
+                    ]
+)

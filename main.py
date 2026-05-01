@@ -1,14 +1,10 @@
 from aiogram.types import BotCommand
-from aiogram import Bot, Dispatcher
-from dotenv import load_dotenv
+from aiogram import Dispatcher
+from init import bot
 from hand import router
 import asyncio
-import os
 
 
-load_dotenv()
-token = os.getenv('TOKEN')
-bot = Bot(token = token)
 dispatcher = Dispatcher()
 
 
@@ -26,4 +22,3 @@ async def main_function():
 
 
 asyncio.run(main_function())
-

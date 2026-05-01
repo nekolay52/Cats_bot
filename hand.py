@@ -1,10 +1,11 @@
 from aiogram import F, Router
 from aiogram.filters import Command
 from butt import button_start, button_spisok, button_inline
-from aiogram.types import Message
+from aiogram.types import Message, CallbackQuery
 from tools import get_directory_tree
 from get_cat import get_cat
 from aiogram import types
+from init import bot
 import os
 
 
@@ -50,12 +51,21 @@ async def hello_world(message):
 @router.message(F.text == 'Получить котика')
 async def hello_world(message):
     get_cat(f"users_pictures/{message.from_user.id}/temp.png")
-    await message.answer_photo(types.FSInputFile(path=f"users_pictures/{message.from_user.id}/temp.png"), caption=":)", reply_markup=button_inline)
+    massegeid = await message.answer_photo(types.FSInputFile(path=f"users_pictures/{message.from_user.id}/temp.png"), caption=":)", reply_markup=button_inline)
     print("Кнопка <Получить котика> нажата")
+
+
+@router.message(F.data == 'Следующий котик')
+async def hello_world(callback : CallbackQuery):
+    get_cat(f"users_pictures/{callback.from_user.id}/temp.png")
+    media = types.InputMediaPhoto(types.FSInputFile(path=f"users_pictures/{callback.from_user.id}/temp.png"))
+    
+    bot.edit_message_media(media=media, chat_id=callback.message.chat.id, message_id=callback.message.id)
+    
+    print("Кнопка <Просмотреть список> нажата")
 
 
 @router.message(F.text == 'Назад')
 async def hello_world(message):
     await message.answer(":)", reply_markup=button_start)
     print("Кнопка <Назад> нажата")
-

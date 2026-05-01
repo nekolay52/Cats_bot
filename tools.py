@@ -1,5 +1,6 @@
 import os
 
+
 def get_directory_tree(path, show_hidden=False, max_depth=None, current_depth=0, prefix='', is_last_root=True):
     lines = []
     abs_path = os.path.abspath(path)

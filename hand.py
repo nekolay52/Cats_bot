@@ -49,19 +49,19 @@ async def hello_world(message):
 
 
 @router.message(F.text == 'Получить котика')
-async def hello_world(message):
+async def hello_world(message, state):
     get_cat(f"users_pictures/{message.from_user.id}/temp.png")
     massege_cas = await message.answer_photo(types.FSInputFile(path=f"users_pictures/{message.from_user.id}/temp.png"), caption=":)", reply_markup=button_inline)
     print("Кнопка <Получить котика> нажата")
-    print(massege_cas)
+    await state.update_data(cat_mes_id=massege_cas.message_id.text)
 
 
 @router.message(F.data == 'Следующий котик')
-async def hello_world(callback : CallbackQuery):
+async def hello_world(callback : CallbackQuery, state):
     get_cat(f"users_pictures/{callback.from_user.id}/temp.png")
     media = types.InputMediaPhoto(types.FSInputFile(path=f"users_pictures/{callback.from_user.id}/temp.png"))
-    
-    bot.edit_message_media(media=media, chat_id=callback.message.chat.id, message_id=callback.message.id)
+    temp_data = await state.get_data()
+    bot.edit_message_media(media=media, chat_id=callback.message.chat.id, message_id=temp_data['cat_mes_id'])
     
     print("Кнопка <Просмотреть список> нажата")
 

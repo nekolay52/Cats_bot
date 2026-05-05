@@ -56,7 +56,7 @@ async def hello_world(message, state):
     await state.update_data(cat_mes_id=massege_cas.message_id)
 
 
-@router.message(F.data == 'Следующий котик')
+@router.callback_query(F.data == 'Следующий котик')
 async def hello_world(callback : CallbackQuery, state):
     get_cat(f"users_pictures/{callback.from_user.id}/temp.png")
     media = types.InputMediaPhoto(types.FSInputFile(path=f"users_pictures/{callback.from_user.id}/temp.png"))

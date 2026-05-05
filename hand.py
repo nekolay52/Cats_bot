@@ -53,7 +53,7 @@ async def hello_world(message, state):
     get_cat(f"users_pictures/{message.from_user.id}/temp.png")
     massege_cas = await message.answer_photo(types.FSInputFile(path=f"users_pictures/{message.from_user.id}/temp.png"), caption=":)", reply_markup=button_inline)
     print("Кнопка <Получить котика> нажата")
-    await state.update_data(cat_mes_id=massege_cas.message_id.text)
+    await state.update_data(cat_mes_id=massege_cas.message_id)
 
 
 @router.message(F.data == 'Следующий котик')

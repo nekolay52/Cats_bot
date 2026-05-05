@@ -59,7 +59,7 @@ async def hello_world(message, state):
 @router.callback_query(F.data == 'Следующий котик')
 async def hello_world(callback : CallbackQuery, state):
     get_cat(f"users_pictures/{callback.from_user.id}/temp.png")
-    media = types.InputMediaPhoto(types.InputFile(path=f"users_pictures/{callback.from_user.id}/temp.png"))
+    media = types.InputMediaPhoto(types.input_file.InputFile(path=f"users_pictures/{callback.from_user.id}/temp.png"))
     temp_data = await state.get_data()
     bot.edit_message_media(media=media, chat_id=callback.message.chat.id, message_id=temp_data['cat_mes_id'])
     

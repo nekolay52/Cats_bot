@@ -59,9 +59,9 @@ async def hello_world(message, state):
 @router.callback_query(F.data == 'Следующий котик')
 async def hello_world(callback : CallbackQuery, state):
     get_cat(f"users_pictures/{callback.from_user.id}/temp.png")
-    media = types.InputMediaPhoto(media=types.FSInputFile(path=f"users_pictures/{callback.from_user.id}/temp.png"), caption=":)")
+    media = types.InputMediaPhoto(media=types.FSInputFile(path=f"users_pictures/{callback.from_user.id}/temp.png"))
     temp_data = await state.get_data()
-    await bot.edit_message_media(media=media, chat_id=callback.message.chat.id, message_id=temp_data['cat_mes_id'], reply_markup=button_inline)
+    await bot.edit_message_media(media=media, chat_id=callback.message.chat.id, message_id=temp_data['cat_mes_id'], caption=":)", reply_markup=button_inline)
     print("Кнопка <Просмотреть список> нажата")
 
 

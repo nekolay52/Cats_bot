@@ -27,27 +27,6 @@ async def hello_world(message):
     print("Кнопка <info> нажата")
 
 
-@router.message(F.text == 'Списки котиков')
-async def hello_world(message):
-    await message.answer(":)", reply_markup=button_spisok)
-    print("Кнопка <Списки котиков> нажата")
-
-@router.message(F.text == 'Добавить список')
-async def hello_world(message):
-    await message.answer(":)", reply_markup=button_spisok)
-    print("Кнопка <Добавить список> нажата")
-
-@router.message(F.text == 'Удалить список')
-async def hello_world(message):
-    await message.answer(":)", reply_markup=button_spisok)
-    print("Кнопка <Удалить список> нажата")
-
-@router.message(F.text == 'Просмотреть список')
-async def hello_world(message):
-    await message.answer(":)", reply_markup=button_spisok)
-    print("Кнопка <Просмотреть список> нажата")
-
-
 @router.message(F.text == 'Получить котика')
 async def hello_world(message, state):
     get_cat(f"users_pictures/{message.from_user.id}/temp.png")

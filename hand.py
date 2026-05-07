@@ -61,8 +61,7 @@ async def hello_world(callback : CallbackQuery, state):
     get_cat(f"users_pictures/{callback.from_user.id}/temp.png")
     media = types.InputMediaPhoto(media=types.FSInputFile(path=f"users_pictures/{callback.from_user.id}/temp.png"))
     temp_data = await state.get_data()
-    await bot.edit_message_media(media=media, chat_id=callback.message.chat.id, message_id=temp_data['cat_mes_id'])
-    
+    await bot.edit_message_media(media=media, chat_id=callback.message.chat.id, message_id=temp_data['cat_mes_id'], reply_markup=button_inline)
     print("Кнопка <Просмотреть список> нажата")
 
 

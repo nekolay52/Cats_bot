@@ -37,6 +37,7 @@ async def process_name(message, state: FSMContext):
     if str(message.text) not in os.listdir(f"users_pictures/{message.from_user.id}"):
         os.makedirs(f"users_pictures/{message.from_user.id}/{message.text}")
         await message.answer(":)", reply_markup=button_spisok)
+        await state.clear()  
     else:
         await message.answer("youre papke ne sozdano", reply_markup=button_spisok)
 

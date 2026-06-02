@@ -8,16 +8,15 @@ from aiogram.fsm.state import State, StatesGroup
 from aiogram.fsm.context import FSMContext
 from get_cat import get_cat
 from aiogram import types
+from inline import inline
 from init import bot
 import os
 
 
 list_router = Router()
 
-
 class States(StatesGroup):
     waiting_spespopek = State()
-
 
 
 @list_router.message(F.text == 'Списки котиков')
@@ -32,21 +31,25 @@ async def hello_world(message, state: FSMContext):
     await message.answer("pls werete youre name ofe spesok", reply_markup=button_spisok)
     print("Кнопка <Добавить список> нажата")
 
+
 @list_router.message(States.waiting_spespopek)
 async def process_name(message, state: FSMContext):
     if str(message.text) not in os.listdir(f"users_pictures/{message.from_user.id}"):
         os.makedirs(f"users_pictures/{message.from_user.id}/{message.text}")
         await message.answer(":)", reply_markup=button_spisok)
-        await state.clear()  
+        await state.clear()
     else:
         await message.answer("youre papke ne sozdano", reply_markup=button_spisok)
+
 
 @list_router.message(F.text == 'Удалить список')
 async def hello_world(message):
     await message.answer(":)", reply_markup=button_spisok)
     print("Кнопка <Удалить список> нажата")
 
+
 @list_router.message(F.text == 'Просмотреть список')
 async def hello_world(message):
-    await message.answer(":)", reply_markup=button_spisok)
+    await message.answer("что за Crocs Toronto", reply_markup=inline(os.listdir(f"users_pictures/{message.from_user.id}")))
     print("Кнопка <Просмотреть список> нажата")
+    print(os.listdir(f"users_pictures/{message.from_user.id}")))

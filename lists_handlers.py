@@ -52,4 +52,4 @@ async def hello_world(message):
 async def hello_world(message):
     await message.answer("что за Crocs Toronto", reply_markup=inline(os.listdir(f"users_pictures/{message.from_user.id}")))
     print("Кнопка <Просмотреть список> нажата")
-    print(os.listdir(f"users_pictures/{message.from_user.id}")))
+    print(os.listdir(f"users_pictures/{message.from_user.id}"))

@@ -50,5 +50,5 @@ async def hello_world(message):
 
 @list_router.message(F.text == 'Просмотреть список')
 async def hello_world(message):
-    # await message.answer("что за Crocs Toronto", reply_markup=inline(os.listdir(f"users_pictures/{message.from_user.id}")))
+    await message.answer("что за Crocs Toronto", reply_markup=inline(os.listdir(f"users_pictures/{message.from_user.id}")))
     print("Кнопка <Просмотреть список> нажата")

@@ -1,4 +1,5 @@
 from aiogram.types import  InlineKeyboardButton, InlineKeyboardMarkup
+import os
 
 
 def inline(spis_spiskov):
@@ -11,3 +12,6 @@ def inline(spis_spiskov):
     )
 
     return inline_test
+
+# print(os.listdir(f"users_pictures/6221228152"))
+# print(inline(os.listdir(f"users_pictures/6221228152")))

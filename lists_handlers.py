@@ -41,7 +41,6 @@ async def process_name(message, state: FSMContext):
     else:
         await message.answer("youre papke ne sozdano", reply_markup=button_spisok)
 
-
 @list_router.message(F.text == 'Удалить список')
 async def hello_world(message):
     await message.answer(":)", reply_markup=button_spisok)

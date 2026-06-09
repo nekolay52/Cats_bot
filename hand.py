@@ -45,7 +45,9 @@ async def hello_world(callback : CallbackQuery, state):
     print("Кнопка <Просмотреть список> нажата")
 
 
-@router.message(F.text == 'Назад')
-async def hello_world(message):
-    await message.answer(":)", reply_markup=button_start)
+@router.callback_query(F.data == 'Назад')
+async def hello_world(callback : CallbackQuery, state):
+    get_cat(f"users_pictures/{callback.from_user.id}/temp.png")
+    temp_data = await state.get_data()
+    await bot.edit_message_text(text=":)", chat_id=callback.message.chat.id, message_id=temp_data['messege_main_id'], reply_markup=button_spisok)
     print("Кнопка <Назад> нажата")

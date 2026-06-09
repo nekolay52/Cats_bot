@@ -3,8 +3,8 @@ from aiogram.types import KeyboardButton, ReplyKeyboardMarkup, InlineKeyboardBut
 
 button_start = InlineKeyboardMarkup(
             keyboard=[
-                [InlineKeyboardButton(text="Списки котиков", callback_data="Списки котиков")]
-                [InlineKeyboardButton(text="Получить котика", callback_data="Получить котика")]
+                [InlineKeyboardButton(text="Списки котиков", callback_data="Списки котиков")],
+                [InlineKeyboardButton(text="Получить котика", callback_data="Получить котика")],
                     ],
 )
 

@@ -21,7 +21,7 @@ class States(StatesGroup):
 
 @list_router.callback_query(F.data == 'Списки котиков')
 async def hello_world(callback : CallbackQuery):
-    await callback.answer(":)", reply_markup=button_spisok)
+    await callback.message.answer(":)", reply_markup=button_spisok)
     print("Кнопка <Списки котиков> нажата")
 
 

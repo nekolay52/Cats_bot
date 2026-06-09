@@ -13,11 +13,12 @@ router = Router()
 
 
 @router.message(Command('start'))
-async def hello_world(message):
+async def hello_world(message, state):
     if str(message.from_user.id) not in os.listdir("users_pictures"):
         os.makedirs(f"users_pictures/{message.from_user.id}")
-    await message.answer("О привет! Выбери пожалуйста что ты хочешь делать :)", reply_markup=button_start)
+    messege_main = await message.answer("О привет! Выбери пожалуйста что ты хочешь делать :)", reply_markup=button_start)
     print("Кнопка <start> нажата")
+    await state.update_data(messege_main_id=messege_main.message_id)
 
 
 @router.message(Command('info'))

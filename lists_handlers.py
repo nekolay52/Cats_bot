@@ -19,9 +19,9 @@ class States(StatesGroup):
     waiting_spespopek = State()
 
 
-@list_router.message(F.text == 'Списки котиков')
-async def hello_world(message):
-    await message.answer(":)", reply_markup=button_spisok)
+@list_router.callback_query(F.text == 'Списки котиков')
+async def hello_world(callback : CallbackQuery):
+    await callback.answer(":)", reply_markup=button_spisok)
     print("Кнопка <Списки котиков> нажата")
 
 

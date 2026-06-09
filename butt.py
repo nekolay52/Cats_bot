@@ -1,12 +1,11 @@
 from aiogram.types import KeyboardButton, ReplyKeyboardMarkup, InlineKeyboardButton, InlineKeyboardMarkup
 
 
-button_start = ReplyKeyboardMarkup(
+button_start = InlineKeyboardMarkup(
             keyboard=[
-                [KeyboardButton(text="Списки котиков")],
-                [KeyboardButton(text="Получить котика")],
+                [InlineKeyboardButton(text="Списки котиков", callback_data="Списки котиков")]
+                [InlineKeyboardButton(text="Получить котика", callback_data="Получить котика")]
                     ],
-            resize_keyboard=True
 )
 
 

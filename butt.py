@@ -9,13 +9,13 @@ button_start = InlineKeyboardMarkup(
 )
 
 
-button_spisok = ReplyKeyboardMarkup(
-            keyboard=[
-                [KeyboardButton(text="Просмотреть список")],
-                [KeyboardButton(text="Удалить список"), KeyboardButton(text="Добавить список")],
-                [KeyboardButton(text="Назад")],
-                    ],
-            resize_keyboard=True
+button_spisok = InlineKeyboardMarkup(
+            inline_keyboard=[
+                [InlineKeyboardButton(text="Просмотреть список", callback_data="Просмотреть список")],
+                [InlineKeyboardButton(text="Удалить список", callback_data="Удалить список")],
+                [InlineKeyboardButton(text="Добавить список", callback_data="Добавить список")],
+                [InlineKeyboardButton(text="Назад", callback_data="Назад")],
+                    ]
 )
 
 

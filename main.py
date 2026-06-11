@@ -11,7 +11,7 @@ dispatcher = Dispatcher()
 
 async def main_menu(bot):
     command = [
-        BotCommand(command = "start", description = "Просто попробуй нажать :)"),
+        BotCommand(command = "start", description = "Старт бота"),
     ]
     await bot.set_my_commands(command)
 

@@ -1,6 +1,6 @@
 from aiogram import F, Router
 from aiogram.filters import Command
-from butt import button_start, button_spisok, button_inline
+from buttons import button_start, button_list, button_watch_cats
 from aiogram.types import Message, CallbackQuery
 from tools import get_directory_tree
 from aiogram.fsm.storage.memory import MemoryStorage
@@ -8,7 +8,7 @@ from aiogram.fsm.state import State, StatesGroup
 from aiogram.fsm.context import FSMContext
 from get_cat import get_cat
 from aiogram import types
-from inline import inline
+from text_for_buttons import text_for_buttons
 from init import bot
 import os
 
@@ -23,33 +23,33 @@ class States(StatesGroup):
 async def hello_world(callback : CallbackQuery, state):
     get_cat(f"users_pictures/{callback.from_user.id}/temp.png")
     temp_data = await state.get_data()
-    await bot.edit_message_text(text=":)", chat_id=callback.message.chat.id, message_id=temp_data['messege_main_id'], reply_markup=button_spisok)
+    await bot.edit_message_text(text="Выбери что хочешь делать со списками", chat_id=callback.message.chat.id, message_id=temp_data['messege_main_id'], reply_markup=button_list)
     print("Кнопка <Списки котиков> нажата")
 
 
-@list_router.message(F.text == 'Добавить список')
-async def hello_world(message, state: FSMContext):
+@list_router.callback_query(F.text == 'Добавить список')
+async def hello_world(callback : CallbackQuery, state: FSMContext):
     await state.set_state(States.waiting_spespopek)
-    await message.answer("pls werete youre name ofe spesok", reply_markup=button_spisok)
+    await callback.message.answer("Пожалуйста напиши название нового списка", reply_markup=button_list)
     print("Кнопка <Добавить список> нажата")
 
 
-@list_router.message(States.waiting_spespopek)
-async def process_name(message, state: FSMContext):
-    if str(message.text) not in os.listdir(f"users_pictures/{message.from_user.id}"):
-        os.makedirs(f"users_pictures/{message.from_user.id}/{message.text}")
-        await message.answer(":)", reply_markup=button_spisok)
+@list_router.callback_query(States.waiting_spespopek)
+async def process_name(callback : CallbackQuery, state: FSMContext):
+    if str(callback.message.text) not in os.listdir(f"users_pictures/{callback.message.from_user.id}"):
+        os.makedirs(f"users_pictures/{callback.message.from_user.id}/{callback.message.text}")
+        await callback.message.answer("Такой список у тебя уже существует", reply_markup=button_list)
         await state.clear()
     else:
-        await message.answer("youre papke ne sozdano", reply_markup=button_spisok)
+        await callback.message.answer("Такой список у тебя уже существует", reply_markup=button_list)
 
-@list_router.message(F.text == 'Удалить список')
+@list_router.callback_query(F.text == 'Удалить список')
 async def hello_world(message):
-    await message.answer(":)", reply_markup=button_spisok)
+    await message.answer("Выбери какой список хочешь удалить", reply_markup=button_list)
     print("Кнопка <Удалить список> нажата")
 
 
-@list_router.message(F.text == 'Просмотреть список')
+@list_router.callback_query(F.text == 'Просмотреть список')
 async def hello_world(message):
-    await message.answer("что за Crocs Toronto", reply_markup=inline(os.listdir(f"users_pictures/{message.from_user.id}")))
+    await message.answer("Вот твои списки", reply_markup=text_for_buttons(os.listdir(f"users_pictures/{message.from_user.id}")))
     print("Кнопка <Просмотреть список> нажата")

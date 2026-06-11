@@ -1,4 +1,4 @@
-from aiogram.types import KeyboardButton, ReplyKeyboardMarkup, InlineKeyboardButton, InlineKeyboardMarkup
+from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 
 button_start = InlineKeyboardMarkup(
@@ -9,7 +9,7 @@ button_start = InlineKeyboardMarkup(
 )
 
 
-button_spisok = InlineKeyboardMarkup(
+button_list = InlineKeyboardMarkup(
             inline_keyboard=[
                 [InlineKeyboardButton(text="Просмотреть список", callback_data="Просмотреть список")],
                 [InlineKeyboardButton(text="Удалить список", callback_data="Удалить список")],
@@ -19,7 +19,7 @@ button_spisok = InlineKeyboardMarkup(
 )
 
 
-button_inline = InlineKeyboardMarkup(
+button_watch_cats = InlineKeyboardMarkup(
             inline_keyboard=[
                 [InlineKeyboardButton(text="Следующий котик", callback_data="Следующий котик")],
                 [InlineKeyboardButton(text="Добавить котика в список", callback_data="Добавить котика в список")],

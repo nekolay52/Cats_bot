@@ -27,7 +27,7 @@ async def hello_world(callback : CallbackQuery, state):
     print("Кнопка <Списки котиков> нажата")
 
 
-@list_router.callback_query(F.text == 'Добавить список')
+@list_router.callback_query(F.data == 'Добавить список')
 async def hello_world(callback : CallbackQuery, state: FSMContext):
     await state.set_state(States.waiting_spespopek)
     await callback.message.answer("Пожалуйста напиши название нового списка", reply_markup=button_list)
@@ -43,13 +43,15 @@ async def process_name(callback : CallbackQuery, state: FSMContext):
     else:
         await callback.message.answer("Такой список у тебя уже существует", reply_markup=button_list)
 
-@list_router.callback_query(F.text == 'Удалить список')
-async def hello_world(message):
-    await message.answer("Выбери какой список хочешь удалить", reply_markup=button_list)
+@list_router.callback_query(F.data == 'Удалить список')
+async def hello_world(callback : CallbackQuery, state):
+    temp_data = await state.get_data()
+    await bot.edit_message_text(text="Выбери какой список хочешь удалить", chat_id=callback.message.chat.id, message_id=temp_data['messege_main_id'], reply_markup=text_for_buttons())
     print("Кнопка <Удалить список> нажата")
 
 
-@list_router.callback_query(F.text == 'Просмотреть список')
-async def hello_world(message):
-    await message.answer("Вот твои списки", reply_markup=text_for_buttons(os.listdir(f"users_pictures/{message.from_user.id}")))
+@list_router.callback_query(F.data == 'Просмотреть список')
+async def hello_world(callback : CallbackQuery, state):
+    temp_data = await state.get_data()
+    await bot.edit_message_text(text="Вот твои списки", chat_id=callback.message.chat.id, message_id=temp_data['messege_main_id'], reply_markup=text_for_buttons())
     print("Кнопка <Просмотреть список> нажата")

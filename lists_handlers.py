@@ -46,12 +46,13 @@ async def process_name(callback : CallbackQuery, state: FSMContext):
 @list_router.callback_query(F.data == 'Удалить список')
 async def hello_world(callback : CallbackQuery, state):
     temp_data = await state.get_data()
-    await bot.edit_message_text(text="Выбери какой список хочешь удалить", chat_id=callback.message.chat.id, message_id=temp_data['messege_main_id'], reply_markup=text_for_buttons())
+    await bot.edit_message_text(text="Выбери какой список хочешь удалить", chat_id=callback.message.chat.id, message_id=temp_data['messege_main_id'], reply_markup=text_for_buttons(callback.from_user.id))
     print("Кнопка <Удалить список> нажата")
 
 
 @list_router.callback_query(F.data == 'Просмотреть список')
 async def hello_world(callback : CallbackQuery, state):
     temp_data = await state.get_data()
-    await bot.edit_message_text(text="Вот твои списки", chat_id=callback.message.chat.id, message_id=temp_data['messege_main_id'], reply_markup=text_for_buttons())
+    await bot.edit_message_text(text="Вот твои списки", chat_id=callback.message.chat.id, message_id=temp_data['messege_main_id'], reply_markup=text_for_buttons(callback.from_user.id))
     print("Кнопка <Просмотреть список> нажата")
+

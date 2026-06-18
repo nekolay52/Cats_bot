@@ -51,3 +51,11 @@ async def hello_world(callback : CallbackQuery, state):
     temp_data = await state.get_data()
     await bot.edit_message_text(text="Ок", chat_id=callback.message.chat.id, message_id=temp_data['messege_main_id'], reply_markup=button_start)
     print("Кнопка <Назад> нажата")
+
+
+@router.callback_query(F.data == 'Вернуться к списку кнопок')
+async def hello_world(callback : CallbackQuery, state):
+    get_cat(f"users_pictures/{callback.from_user.id}/temp.png")
+    temp_data = await state.get_data()
+    await bot.edit_message_text(text="Ок", chat_id=callback.message.chat.id, message_id=temp_data['messege_main_id'], reply_markup=button_list)
+    print("Кнопка <Назад> нажата")

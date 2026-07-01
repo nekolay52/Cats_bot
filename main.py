@@ -1,8 +1,8 @@
+from lists_handlers import list_router
 from aiogram.types import BotCommand
 from aiogram import Dispatcher
+from handlers import router
 from init import bot
-from hand import router
-from lists_handlers import list_router
 import asyncio
 
 

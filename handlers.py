@@ -25,7 +25,7 @@ async def hello_world(message, state):
 @router.message(Command('info'))
 async def hello_world(message):
     directory_tree = get_directory_tree("./")
-    await message.answer(f"```\n{directory_tree}\n```", reply_markup=button_main_menu, parse_mode="Markdown")
+    await message.answer(f"```\n{directory_tree}\n```", parse_mode="Markdown")
     print("Команда <info> введена")
 
 

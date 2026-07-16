@@ -1,3 +1,4 @@
+from list_slide_handlers import list_slide_router
 from lists_handlers import list_router
 from aiogram.types import BotCommand
 from aiogram import Dispatcher
@@ -20,6 +21,7 @@ async def main_function():
     await main_menu(bot)
     dispatcher.include_router(router)
     dispatcher.include_router(list_router)
+    dispatcher.include_router(list_slide_router)
     await dispatcher.start_polling(bot)
 
 

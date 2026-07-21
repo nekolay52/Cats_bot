@@ -76,7 +76,6 @@ async def hello_world(callback : CallbackQuery, state : FSMContext):
 @router.callback_query(F.data == 'Закрыть_1')
 async def hello_world(callback : CallbackQuery, state : FSMContext):
     temp_data = await state.get_data()
-    print(temp_data)
     await bot.delete_message(chat_id=callback.message.chat.id, message_id=temp_data['cat_message_id'])
     temp_data.pop("cat_message_id")
     await state.set_data(temp_data)

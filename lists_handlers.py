@@ -26,26 +26,26 @@ async def hello_world(callback : CallbackQuery, state : FSMContext):
 
 @list_router.callback_query(F.data == 'Добавить список')
 async def hello_world(callback : CallbackQuery, state : FSMContext):
-    if len(os.listdir(f"users_pictures/{callback.message.from_user.id}/")) >= 99:
-            await bot.edit_message_text(text="Достигнут лимит количества списков", chat_id=callback.message.chat.id, message_id=temp_data['message_main_id'], reply_markup=button_exit_1)
-    else:
-        await state.set_state(States.waiting_list)
-        temp_data = await state.get_data()
-        await bot.edit_message_text(text="Пожалуйста напиши название нового списка", chat_id=callback.message.chat.id, message_id=temp_data['message_main_id'], reply_markup=button_exit_1)
-        print("Кнопка <Добавить список> нажата")
+    if len(os.listdir(f"users_pictures/{callback.from_user.id}/")) >= 99:
+        await bot.edit_message_text(text="Достигнут лимит количества списков", chat_id=callback.message.chat.id, message_id=temp_data['message_main_id'], reply_markup=button_exit_1)
+        return
+    await state.set_state(States.waiting_list)
+    temp_data = await state.get_data()
+    await bot.edit_message_text(text="Пожалуйста напиши название нового списка", chat_id=callback.message.chat.id, message_id=temp_data['message_main_id'], reply_markup=button_exit_1)
+    print("Кнопка <Добавить список> нажата")
 
 
 @list_router.message(States.waiting_list)
 async def hello_world(message: Message, state : FSMContext):
     temp_data = await state.get_data()
     await message.delete()
-    if str(message.text) not in os.listdir(f"users_pictures/{message.from_user.id}") and "_" not in str(message.text):
-        os.makedirs(f"users_pictures/{message.from_user.id}/{message.text}")
-        await bot.edit_message_text(text="Выбери что хочешь делать со списками", chat_id=message.chat.id, message_id=temp_data['message_main_id'], reply_markup=button_list)
-        await state.clear()
-        await state.update_data(message_main_id=temp_data['message_main_id'])
-    else:
+    if str(message.text) in os.listdir(f"users_pictures/{message.from_user.id}") and "_" in str(message.text):
         await bot.edit_message_text(text="Такой список у тебя уже существует или есть _", chat_id=message.chat.id, message_id=temp_data['message_main_id'], reply_markup=button_exit_1)
+        return
+    os.makedirs(f"users_pictures/{message.from_user.id}/{message.text}")
+    await bot.edit_message_text(text="Выбери что хочешь делать со списками", chat_id=message.chat.id, message_id=temp_data['message_main_id'], reply_markup=button_list)
+    await state.clear()
+    await state.update_data(message_main_id=temp_data['message_main_id'])
 
 
 @list_router.callback_query(F.data == 'Отмена_1')

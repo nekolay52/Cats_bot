@@ -31,6 +31,7 @@ async def hello_world(callback : CallbackQuery, state : FSMContext):
     temp_data = await state.get_data()
     path_list = f"users_pictures/{callback.from_user.id}/{temp_data['directory']}"
     if temp_data['picture_number'] == len(os.listdir(path_list)):
+        callback.answer("Это последняя картинка")
         return
     media = types.InputMediaPhoto(media=types.FSInputFile(path=f"{path_list}/{sorted(os.listdir(path_list))[temp_data['picture_number']]}"), caption=f"{temp_data['picture_number'] + 1} / {len(os.listdir(path_list))}")
     await bot.edit_message_media(media=media, chat_id=callback.message.chat.id, message_id=temp_data['cat_slide_message_id'], reply_markup=button_watch_list_cats)
@@ -43,6 +44,7 @@ async def hello_world(callback : CallbackQuery, state : FSMContext):
     temp_data = await state.get_data()
     path_list = f"users_pictures/{callback.from_user.id}/{temp_data['directory']}"
     if temp_data['picture_number'] <= 1:
+        callback.answer("Это первая картинка")
         return
     media = types.InputMediaPhoto(media=types.FSInputFile(path=f"{path_list}/{sorted(os.listdir(path_list))[temp_data['picture_number'] - 2]}"), caption=f"{temp_data['picture_number'] - 1} / {len(os.listdir(path_list))}")
     await bot.edit_message_media(media=media, chat_id=callback.message.chat.id, message_id=temp_data['cat_slide_message_id'], reply_markup=button_watch_list_cats)

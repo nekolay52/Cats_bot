@@ -39,6 +39,34 @@ button_watch_list_cats = InlineKeyboardMarkup(
 )
 
 
+button_watch_list_cats_alone = InlineKeyboardMarkup(
+            inline_keyboard=[
+                [InlineKeyboardButton(text="◀️", callback_data="skip"), InlineKeyboardButton(text="▶️", callback_data="skip")],
+                [InlineKeyboardButton(text="Ввести номер", callback_data="Ввести номер", style="success")],
+                [InlineKeyboardButton(text="Удалить фото", callback_data="Удалить фото", style="danger")],
+                [InlineKeyboardButton(text="Закрыть", callback_data="Закрыть_2", style="danger")],
+                    ]
+)
+
+
+button_watch_list_cats_last = InlineKeyboardMarkup(
+            inline_keyboard=[
+                [InlineKeyboardButton(text="◀️", callback_data="влево", style="primary"), InlineKeyboardButton(text="▶️", callback_data="skip")],
+                [InlineKeyboardButton(text="Ввести номер", callback_data="Ввести номер", style="success")],
+                [InlineKeyboardButton(text="Удалить фото", callback_data="Удалить фото", style="danger")],
+                [InlineKeyboardButton(text="Закрыть", callback_data="Закрыть_2", style="danger")],
+                    ]
+)
+
+button_watch_list_cats_first = InlineKeyboardMarkup(
+            inline_keyboard=[
+                [InlineKeyboardButton(text="◀️", callback_data="skip"), InlineKeyboardButton(text="▶️", callback_data="вправо", style="primary")],
+                [InlineKeyboardButton(text="Ввести номер", callback_data="Ввести номер", style="success")],
+                [InlineKeyboardButton(text="Удалить фото", callback_data="Удалить фото", style="danger")],
+                [InlineKeyboardButton(text="Закрыть", callback_data="Закрыть_2", style="danger")],
+                    ]
+)
+
 button_exit_1 = InlineKeyboardMarkup(
             inline_keyboard=[
                 [InlineKeyboardButton(text="Отмена", callback_data="Отмена_1", style="danger")],

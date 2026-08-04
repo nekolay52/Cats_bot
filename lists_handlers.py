@@ -39,7 +39,7 @@ async def hello_world(callback : CallbackQuery, state : FSMContext):
 async def hello_world(message: Message, state : FSMContext):
     temp_data = await state.get_data()
     await message.delete()
-    if str(message.text) in os.listdir(f"users_pictures/{message.from_user.id}") and "_" in str(message.text):
+    if str(message.text) in os.listdir(f"users_pictures/{message.from_user.id}") or "_" in str(message.text):
         await bot.edit_message_text(text="Такой список у тебя уже существует или есть _", chat_id=message.chat.id, message_id=temp_data['message_main_id'], reply_markup=button_exit_1)
         return
     os.makedirs(f"users_pictures/{message.from_user.id}/{message.text}")

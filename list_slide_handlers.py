@@ -1,4 +1,5 @@
-from buttons import button_watch_list_cats, list_menu, button_exit_2
+from buttons import list_menu, button_exit_2, button_watch_list_cats_first, button_watch_list_cats_alone
+from tools import choose_keyboard, choose_keyboard_for_wright_number
 from aiogram.types import Message, CallbackQuery
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.fsm.context import FSMContext
@@ -21,21 +22,22 @@ async def hello_world(callback : CallbackQuery, state : FSMContext):
         temp_data = await state.get_data()
         await bot.edit_message_text(text="Данный список пуст", chat_id=callback.message.chat.id, message_id=temp_data['message_main_id'], reply_markup=list_menu(callback.from_user.id, "watch_cat"))
         return
-    media = await callback.message.answer_photo(types.FSInputFile(path=f"{path_list}/{sorted(os.listdir(path_list))[0]}"), caption=f"1 / {len(os.listdir(path_list))}", reply_markup=button_watch_list_cats)
+    keyboard = button_watch_list_cats_first
+    if len(os.listdir(path_list)) == 1:
+        keyboard = button_watch_list_cats_alone
+    media = await callback.message.answer_photo(types.FSInputFile(path=f"{path_list}/{sorted(os.listdir(path_list))[0]}"), caption=f"1 / {len(os.listdir(path_list))}", reply_markup=keyboard)
     await state.update_data(cat_slide_message_id=media.message_id)
     await state.update_data(picture_number=1)
     await state.update_data(directory=callback.data.split("_")[-1])
+
 
 @list_slide_router.callback_query(F.data == "вправо")
 async def hello_world(callback : CallbackQuery, state : FSMContext):
     temp_data = await state.get_data()
     path_list = f"users_pictures/{callback.from_user.id}/{temp_data['directory']}"
-    if temp_data['picture_number'] == len(os.listdir(path_list)):
-        callback.answer("Это последняя картинка")
-        return
-    media = types.InputMediaPhoto(media=types.FSInputFile(path=f"{path_list}/{sorted(os.listdir(path_list))[temp_data['picture_number']]}"), caption=f"{temp_data['picture_number'] + 1} / {len(os.listdir(path_list))}")
-    await bot.edit_message_media(media=media, chat_id=callback.message.chat.id, message_id=temp_data['cat_slide_message_id'], reply_markup=button_watch_list_cats)
     await state.update_data(picture_number=temp_data['picture_number'] + 1)
+    keyboard, media = await choose_keyboard(state, path_list)
+    await bot.edit_message_media(media=media, chat_id=callback.message.chat.id, message_id=temp_data['cat_slide_message_id'], reply_markup=keyboard)
     print("Кнопка <вправо> нажата")
 
 
@@ -43,12 +45,9 @@ async def hello_world(callback : CallbackQuery, state : FSMContext):
 async def hello_world(callback : CallbackQuery, state : FSMContext):
     temp_data = await state.get_data()
     path_list = f"users_pictures/{callback.from_user.id}/{temp_data['directory']}"
-    if temp_data['picture_number'] <= 1:
-        callback.answer("Это первая картинка")
-        return
-    media = types.InputMediaPhoto(media=types.FSInputFile(path=f"{path_list}/{sorted(os.listdir(path_list))[temp_data['picture_number'] - 2]}"), caption=f"{temp_data['picture_number'] - 1} / {len(os.listdir(path_list))}")
-    await bot.edit_message_media(media=media, chat_id=callback.message.chat.id, message_id=temp_data['cat_slide_message_id'], reply_markup=button_watch_list_cats)
-    await state.update_data(picture_number=temp_data['picture_number'] - 1)        
+    await state.update_data(picture_number=temp_data['picture_number'] - 1)
+    keyboard, media = await choose_keyboard(state, path_list)
+    await bot.edit_message_media(media=media, chat_id=callback.message.chat.id, message_id=temp_data['cat_slide_message_id'], reply_markup=keyboard)
     print("Кнопка <влево> нажата")
 
 
@@ -71,10 +70,10 @@ async def hello_world(message : Message, state: FSMContext):
     if int(message.text) < 1 or int(message.text) > len(os.listdir(path_list)):
         await bot.edit_message_text(text="Пожалуйста введите корректное число", chat_id=message.chat.id, message_id=temp_data['input_cat_number_id'], reply_markup=button_exit_2)
         return
-    media = types.InputMediaPhoto(media=types.FSInputFile(path=f"{path_list}/{sorted(os.listdir(path_list))[int(message.text) - 1]}"), caption=f"{int(message.text)} / {len(os.listdir(path_list))}")
-    await bot.edit_message_media(media=media, chat_id=message.chat.id, message_id=temp_data['cat_slide_message_id'], reply_markup=button_watch_list_cats)
-    await state.update_data(picture_number=int(message.text))
     await bot.delete_message(chat_id=message.chat.id, message_id=temp_data['input_cat_number_id'])
+    keyboard, media = await choose_keyboard_for_wright_number(state, path_list, int(message.text))
+    await bot.edit_message_media(media=media, chat_id=message.chat.id, message_id=temp_data['cat_slide_message_id'], reply_markup=keyboard)
+    temp_data['picture_number'] = int(message.text)
     temp_data.pop("input_cat_number_id")
     await state.set_data(temp_data)
 
@@ -101,13 +100,14 @@ async def hello_world(callback : CallbackQuery, state : FSMContext):
         await state.set_data(temp_data)
         return
     if temp_data['picture_number'] == 1:
-        media = types.InputMediaPhoto(media=types.FSInputFile(path=f"{path_list}/{sorted(os.listdir(path_list))[temp_data['picture_number'] - 1]}"), caption=f"{temp_data['picture_number']} / {len(os.listdir(path_list))}")
-        await bot.edit_message_media(media=media, chat_id=callback.message.chat.id, message_id=temp_data['cat_slide_message_id'], reply_markup=button_watch_list_cats)
         await state.update_data(picture_number=temp_data['picture_number'])
+        keyboard, media = await choose_keyboard(state, path_list)
+        await bot.edit_message_media(media=media, chat_id=callback.message.chat.id, message_id=temp_data['cat_slide_message_id'], reply_markup=keyboard)
     else:
-        media = types.InputMediaPhoto(media=types.FSInputFile(path=f"{path_list}/{sorted(os.listdir(path_list))[temp_data['picture_number'] - 2]}"), caption=f"{temp_data['picture_number'] - 1} / {len(os.listdir(path_list))}")
-        await bot.edit_message_media(media=media, chat_id=callback.message.chat.id, message_id=temp_data['cat_slide_message_id'], reply_markup=button_watch_list_cats)
         await state.update_data(picture_number=temp_data['picture_number'] - 1)
+        keyboard, media = await choose_keyboard(state, path_list)
+
+        await bot.edit_message_media(media=media, chat_id=callback.message.chat.id, message_id=temp_data['cat_slide_message_id'], reply_markup=keyboard)
     print("Кнопка <Удалить фото> нажата")
 
 

@@ -4,5 +4,5 @@ import os
 
 
 load_dotenv()
-token = os.getenv('TOKEN')
+token = os.getenv('TG_BOT_TOKEN')
 bot = Bot(token = token)

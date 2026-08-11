@@ -1,8 +1,8 @@
-from list_slide_handlers import list_slide_router
-from lists_handlers import list_router
+from handlers.list_slide_handlers import list_slide_router
+from handlers.lists_handlers import list_router
 from aiogram.types import BotCommand
 from aiogram import Dispatcher
-from handlers import router
+from handlers.handlers import router
 from init import bot
 import asyncio
 

@@ -1,5 +1,5 @@
 from buttons import list_menu, button_exit_2, button_watch_list_cats_first, button_watch_list_cats_alone
-from tools import choose_keyboard, choose_keyboard_for_wright_number
+from keyboard import choose_keyboard, choose_keyboard_for_wright_number
 from aiogram.types import Message, CallbackQuery
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.fsm.context import FSMContext

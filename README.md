@@ -39,7 +39,7 @@ cd Cats_bot
 ### 3. Вы должены создать файл .env в папке проекта
 
 ```
-TOKEN_FOR_TG_BOT= taken вашего Telegram бота
+TG_BOT_TOKEN= taken вашего Telegram бота
 ```
 
 #### 4. Запуск программы осуществляется через `main.py`

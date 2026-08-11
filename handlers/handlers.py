@@ -1,7 +1,6 @@
 from buttons import button_main_menu, button_list, button_watch_cats, list_menu
 from aiogram.types import Message, CallbackQuery
 from aiogram.fsm.context import FSMContext
-from tools import get_directory_tree
 from aiogram.filters import Command
 from aiogram import F, Router
 from get_cat import get_cat
@@ -21,15 +20,6 @@ async def hello_world(message: Message, state : FSMContext):
     message_main = await message.answer("О привет! Выбери пожалуйста что ты хочешь делать", reply_markup=button_main_menu)
     await state.update_data(message_main_id=message_main.message_id)
     print("Команда <start> введена")
-
-
-@router.message(Command('info'))
-async def hello_world(message: Message, state : FSMContext):
-    temp_data = await state.get_data()
-    directory_tree = get_directory_tree("./")
-    await message.answer(f"```\n{directory_tree}\n```", parse_mode="Markdown")
-    await message.answer(f"```\n{temp_data}\n```", parse_mode="Markdown")
-    print("Команда <info> введена")
 
 
 @router.callback_query(F.data == 'Получить котика')

@@ -6,16 +6,26 @@
 
 ## ✨ Основные возможности
 
-* **🎲 [Случайный котик](pictures/photo3.png):** Получи мгновенное фото случайного пушистика в один клик.
+* **🎲 Случайный котик ** Получи мгновенное фото случайного пушистика в один клик.
 
+<p align="center">
+<img src="https://github.com/nekolay52/Cats_bot/blob/main/pictures/photo3.png" style="width:60%"/>
+</p>
 
-* **🖼️ [Интерактивные слайдеры](pictures/photo1.png):** Листай галереи картинок прямо внутри Telegram с помощью Inline-кнопок.
+* **🖼️ Интерактивные слайдеры ** Листай галереи картинок прямо внутри Telegram с помощью Inline-кнопок.
 
+<p align="center">
+<img src="https://github.com/nekolay52/Cats_bot/blob/main/pictures/photo1.png" style="width:60%"/>
+</p>
 
-* **📁 [Управление списками](pictures/photo2.png):**
+* **📁 Управление списками **
   * Создавай собственные списки любимых котиков.
   * Просматривай сохранённые коллекции.
   * Удаляй списки или отдельные картинки, если они больше не нужны.
+
+<p align="center">
+<img src="https://github.com/nekolay52/Cats_bot/blob/main/pictures/photo2.png" style="width:60%"/>
+</p>
 
 ---
 
